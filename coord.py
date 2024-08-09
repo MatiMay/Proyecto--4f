@@ -1,5 +1,5 @@
-import numpy as np
-from stl import mesh
+import numpy as np # type: ignore
+from stl import mesh # type: ignore
 
 def create_3d_object(coordinates):
     # Create a numpy array from the coordinates
@@ -16,8 +16,37 @@ def export_stl(mesh_object, filename):
     # Export the mesh object as an STL file
     mesh_object.save(filename)
 
+def coords_user():
+    print('How many vertices? remember a vertex connects to various faces')
+    cant= int(input())
+    lista=[]
+    for _ in range(cant):
+        print('Enter the x coordinate of the vertex')
+        x= int(input())
+        print('Enter the y coordinate of the vertex')
+        y= int(input())
+        print('Enter the z coordinate of the vertex')
+        z= int(input())
+        lista.append([x,y,z])
+        print('Vertex created')
 
-def main(x,y,z): #Center the object from the origin
+    print('How many faces will you create?')
+    cant= int(input())
+    lista_faces=[]
+    print('Create faces from 3 vertex')
+    for _ in range(cant):
+        print('Enter the index of the first vertex')
+        a= int(input())
+        print('Enter the index of the second vertex')
+        b= int(input())
+        print('Enter the index of the third vertex')
+        c= int(input())
+        lista_faces.append([a,b,c])
+        print('Face created')
+    object_3d = create_3d_object(lista_faces)
+    export_stl(object_3d, 'output.stl')
+
+def coords_standarized(x,y,z):
     center=[(-x+x)/2, (-y+y)/2, (-z+z)/2] #Center of the object
     #8 edges
     a=[-x,-y,-z]
@@ -34,7 +63,12 @@ def main(x,y,z): #Center the object from the origin
     cdgh=[  (-x+x)/2,   y,          (-z+z)/2]
     bfdh=[  (-x+x)/2,   (-y+y)/2,   z       ]
     aceg=[  (-x+x)/2,   (-y+y)/2,   -z      ]
+    print('Vertices created')
+    return a,b,c,d,e,f,g,h,acdb,abfe,efgh,cdgh,bfdh,aceg
 
+
+def main(x,y,z): #Center the object from the origin
+    a, b, c, d, e, f, g, h = coords_standarized(x, y, z)
     figures = {
     'cube': [
         [a, e, b],  # Triangle 1
@@ -70,10 +104,17 @@ def main(x,y,z): #Center the object from the origin
 
 
 if __name__ == "__main__":
-    print("X :")
-    x=int(input())
-    print("Y :")
-    y=int(input())
-    print("Z :")
-    z=int(input())
-    main(x,y,z)
+    print("User selected vertices or standarized vertices (U/S):")
+    user = str(input())
+    if user == 'U' or user == 'u':
+        coords_user()
+    elif user == 'S' or user == 's':
+        print('Size of X:')
+        x= int(input())
+        print('Size of Y:')
+        y= int(input())
+        print('Size of Z:')
+        z= int(input())
+        main(x,y,z)
+    else:
+        print("Invalid input")
