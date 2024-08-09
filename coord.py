@@ -64,11 +64,11 @@ def coords_standarized(x,y,z):
     bfdh=[  (-x+x)/2,   (-y+y)/2,   z       ]
     aceg=[  (-x+x)/2,   (-y+y)/2,   -z      ]
     print('Vertices created')
-    return a,b,c,d,e,f,g,h,acdb,abfe,efgh,cdgh,bfdh,aceg
+    return a, b, c, d, e, f, g, h, acdb, abfe, efgh, cdgh, bfdh, aceg, center
 
 
 def main(x,y,z): #Center the object from the origin
-    a, b, c, d, e, f, g, h = coords_standarized(x, y, z)
+    a, b, c, d, e, f, g, h, acdb,abfe,efgh,cdgh,bfdh,aceg, center = coords_standarized(x, y, z)
     figures = {
     'cube': [
         [a, e, b],  # Triangle 1
