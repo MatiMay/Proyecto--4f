@@ -18,14 +18,14 @@ def export_stl(mesh_object, filename):
 
 def coords_user():
     figures=library(1, 1, 1, False)
-    new_shape_key = input("Enter the name of the new shape: ") # Example: 'triangle', 'pentagon', this name will appear in the figures dictionary 
+    new_shape_key = str(input("Enter the name of the new shape: ")) # Example: 'triangle', 'pentagon', this name will appear in the figures dictionary 
     new_shape_coordinates = []
     num_triangles = int(input(f"Enter the number of triangles for {new_shape_key}: ")) # Triangles of faces from object
     for i in range(num_triangles):  #For each triangle/face
         print(f"Enter coordinates for triangle {i + 1}:")
         triangle = []
         for j in range(3):  #For each vertex of the triangle
-            vertex = input(f"Enter vertex {j + 1} (format: x,y,z) ADD COMAS: ") # Input the coordinates of the vertex
+            vertex = int(input(f"Enter vertex {j + 1} (format: x,y,z) ADD COMAS: ")) # Input the coordinates of the vertex
             vertex = list(map(int, vertex.split(','))) # Split the input comas to 3 numbers
             triangle.append(vertex)
         new_shape_coordinates.append(triangle)
@@ -84,7 +84,7 @@ def library(x,y,z,standarized): #Center the object from the origin
     ]
 }
     if standarized:
-        selected_shape = input("Available shapes: "+ str(list(figures.keys()))+"\nEnter the name of the shape you want to create: ")
+        selected_shape = str(input("Available shapes: "+ str(list(figures.keys()))+"\nEnter the name of the shape you want to create: "))
         return figures[selected_shape]
     else:
         return figures
