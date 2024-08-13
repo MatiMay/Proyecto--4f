@@ -15,7 +15,7 @@ def create_3d_object(coordinates):
 def export_stl(mesh_object, filename):
     # Export the mesh object as an STL file
     mesh_object.save(filename)
-
+#before changes in user
 def coords_user():
     print('How many vertices? remember a vertex connects to various faces')
     cant= int(input())
