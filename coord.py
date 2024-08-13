@@ -15,35 +15,28 @@ def create_3d_object(coordinates):
 def export_stl(mesh_object, filename):
     # Export the mesh object as an STL file
     mesh_object.save(filename)
-#before changes in user
-def coords_user():
-    print('How many vertices? remember a vertex connects to various faces')
-    cant= int(input())
-    lista=[]
-    for _ in range(cant):
-        print('Enter the x coordinate of the vertex')
-        x= int(input())
-        print('Enter the y coordinate of the vertex')
-        y= int(input())
-        print('Enter the z coordinate of the vertex')
-        z= int(input())
-        lista.append([x,y,z])
-        print('Vertex created')
 
-    print('How many faces will you create?')
-    cant= int(input())
-    lista_faces=[]
-    print('Create faces from 3 vertex')
-    for _ in range(cant):
-        print('Enter the index of the first vertex')
-        a= int(input())
-        print('Enter the index of the second vertex')
-        b= int(input())
-        print('Enter the index of the third vertex')
-        c= int(input())
-        lista_faces.append([a,b,c])
-        print('Face created')
-    object_3d = create_3d_object(lista_faces)
+def coords_user():
+    figures=library(1, 1, 1, False)
+    new_shape_key = input("Enter the name of the new shape: ")
+    new_shape_coordinates = []
+    num_triangles = int(input(f"Enter the number of triangles for {new_shape_key}: "))
+    for i in range(num_triangles):
+        print(f"Enter coordinates for triangle {i + 1}:")
+        triangle = []
+        for j in range(3):
+            vertex = input(f"Enter vertex {j + 1} (format: x,y,z) ADD COMAS: ")
+            vertex = list(map(int, vertex.split(',')))
+            triangle.append(vertex)
+        new_shape_coordinates.append(triangle)
+
+    # Add the new shape to the figures dictionary
+    figures[new_shape_key] = new_shape_coordinates
+
+    # Example usage
+    print(f"Coordinates for {new_shape_key}: {figures[new_shape_key]}")
+
+    object_3d = create_3d_object(figures[new_shape_key])
     export_stl(object_3d, 'output.stl')
 
 def coords_standarized(x,y,z):
@@ -67,7 +60,7 @@ def coords_standarized(x,y,z):
     return a, b, c, d, e, f, g, h, acdb, abfe, efgh, cdgh, bfdh, aceg, center
 
 
-def main(x,y,z): #Center the object from the origin
+def library(x,y,z,standarized): #Center the object from the origin
     a, b, c, d, e, f, g, h, acdb,abfe,efgh,cdgh,bfdh,aceg, center = coords_standarized(x, y, z)
     figures = {
     'cube': [
@@ -92,16 +85,21 @@ def main(x,y,z): #Center the object from the origin
         [b, c, a]   # Triangle 4
     ]
 }
+    if standarized:
+        selected_shape = input("Available shapes: "+ str(list(figures.keys()))+"\nEnter the name of the shape you want to create: ")
+        return figures[selected_shape]
+    else:
+        return figures
 
+def standarized(x,y,z):
     # Example usage
-    coordinates = figures['cube']
+    object = library(x,y,z,True)
 
     # Create the 3D object
-    object_3d = create_3d_object(coordinates)
+    object_3d = create_3d_object(object)
 
     # Export the 3D object as an STL file
     export_stl(object_3d, 'output.stl')
-
 
 if __name__ == "__main__":
     print("User selected vertices or standarized vertices (U/S):")
@@ -115,6 +113,6 @@ if __name__ == "__main__":
         y= int(input())
         print('Size of Z:')
         z= int(input())
-        main(x,y,z)
+        standarized(x,y,z)
     else:
         print("Invalid input")
