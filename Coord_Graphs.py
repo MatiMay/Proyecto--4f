@@ -15,21 +15,14 @@ def Input_graphs():
     for i in range(num_graphs):
         graph = nx.Graph()
         nodes = input(f"Enter the nodes for graph {i+1} (separated by spaces): ").split()
-        
-        node_coords={}
-        for node in nodes:
-            x, y, z = map(int, input(f"Enter the coordinates for node {node} (format: x y z): WITH COMAS ").split(","))
-            node_coords[node] = (x, y, z)
-            graph.add_node(node, pos=(x, y, z))
-        
         num_edges = int(input(f"Enter the number of edges for graph {i+1}: "))
         edges = []
         for _ in range(num_edges):
             edge = input(f"Enter an edge (format: node1 node2) for graph {i+1}: ").split()
             edges.append(edge)
         graph.add_edges_from(edges)
+        graph.add_edges_from(edges)
         graphs.append(graph)
-
     return graphs
 
 def create_3d_graph(graphs):
