@@ -9,7 +9,6 @@ def create_3d_object(coordinates):
     mesh_object = mesh.Mesh(np.zeros(vertices.shape[0], dtype=mesh.Mesh.dtype))
     for i, vertex in enumerate(vertices):
         mesh_object.vectors[i] = vertex
-
     return mesh_object
 
 def export_stl(mesh_object, filename):
@@ -18,14 +17,14 @@ def export_stl(mesh_object, filename):
 
 def coords_user():
     figures=library(1, 1, 1, False)
-    new_shape_key = str(input("Enter the name of the new shape: ")) # Example: 'triangle', 'pentagon', this name will appear in the figures dictionary 
+    new_shape_key = input("Enter the name of the new shape: ") # Example: 'triangle', 'pentagon', this name will appear in the figures dictionary 
     new_shape_coordinates = []
     num_triangles = int(input(f"Enter the number of triangles for {new_shape_key}: ")) # Triangles of faces from object
     for i in range(num_triangles):  #For each triangle/face
         print(f"Enter coordinates for triangle {i + 1}:")
         triangle = []
         for j in range(3):  #For each vertex of the triangle
-            vertex = int(input(f"Enter vertex {j + 1} (format: x,y,z) ADD COMAS: ")) # Input the coordinates of the vertex
+            vertex = input(f"Enter vertex {j + 1} (format: x,y,z) ADD COMAS: ") # Input the coordinates of the vertex
             vertex = list(map(int, vertex.split(','))) # Split the input comas to 3 numbers
             triangle.append(vertex)
         new_shape_coordinates.append(triangle)
@@ -39,8 +38,6 @@ def coords_user():
     export_stl(object_3d, 'output.stl')
 
 def coords_standarized(x,y,z):
-    center=[(-x+x)/2, (-y+y)/2, (-z+z)/2] #Center of the object
-    #8 edges
     a=[-x,-y,-z]
     b=[-x,-y, z]
     c=[-x, y,-z]
@@ -49,14 +46,14 @@ def coords_standarized(x,y,z):
     f=[ x,-y, z]
     g=[ x, y,-z]
     h=[ x, y, z]
-    acdb=[  -x,         (-y+y)/2,   (-z+z)/2]
-    abfe=[  (-x+x)/2,   -y,         (-z+z)/2]
-    efgh=[  x,          (-y+y)/2,   (-z+z)/2]
+    center=[(-x+x)/2, (-y+y)/2, (-z+z)/2] #Center of the object
     cdgh=[  (-x+x)/2,   y,          (-z+z)/2]
     bfdh=[  (-x+x)/2,   (-y+y)/2,   z       ]
     aceg=[  (-x+x)/2,   (-y+y)/2,   -z      ]
+    acdb=[  -x,         (-y+y)/2,   (-z+z)/2]
+    abfe=[  (-x+x)/2,   -y,         (-z+z)/2]
+    efgh=[  x,          (-y+y)/2,   (-z+z)/2]
     return a, b, c, d, e, f, g, h, acdb, abfe, efgh, cdgh, bfdh, aceg, center
-
 
 def library(x,y,z,standarized): #Center the object from the origin
     a, b, c, d, e, f, g, h, acdb,abfe,efgh,cdgh,bfdh,aceg, center = coords_standarized(x, y, z)
@@ -84,7 +81,7 @@ def library(x,y,z,standarized): #Center the object from the origin
     ]
 }
     if standarized:
-        selected_shape = str(input("Available shapes: "+ str(list(figures.keys()))+"\nEnter the name of the shape you want to create: "))
+        selected_shape = input("Available shapes: "+ str(list(figures.keys()))+"\nEnter the name of the shape you want to create: ")
         return figures[selected_shape]
     else:
         return figures
@@ -92,10 +89,8 @@ def library(x,y,z,standarized): #Center the object from the origin
 def standarized(x,y,z):
     # Example usage
     object = library(x,y,z,True)
-
     # Create the 3D object
     object_3d = create_3d_object(object)
-
     # Export the 3D object as an STL file
     export_stl(object_3d, 'output.stl')
 
