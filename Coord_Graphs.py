@@ -1,5 +1,6 @@
 import networkx as nx # type: ignore
 import matplotlib.pyplot as plt # type: ignore
+from mpl_toolkits.mplot3d import Axes3D # type: ignore
 import numpy as np # type: ignore
 from stl import mesh # type: ignore
 
@@ -9,18 +10,22 @@ graphs = []
 #Graphs
 def Input_graphs():
     # Get the number of graphs from the user
-    num_graphs = int(input("Enter the number of graphs: "))
+    num_graphs = int(input("Number of graphs: "))
 
     # Create the graphs based on user input
     for i in range(num_graphs):
         graph = nx.Graph()
-        nodes = input(f"Enter the nodes for graph {i+1} (separated by spaces): ").split()
-        num_edges = int(input(f"Enter the number of edges for graph {i+1}: "))
+        nodes = input(f"Nodes for graph {i+1} (by spaces): ").split()
+
+        for node in nodes:
+            value = input(f"Value of the node {node} graph: {i+1}: ").split(',')
+            graph.add_node(node, value=value)
+
+        num_edges = int(input(f"Number of edges for graph {i+1}: "))
         edges = []
         for _ in range(num_edges):
-            edge = input(f"Enter an edge (format: node1 node2) for graph {i+1}: ").split()
+            edge = input(f"Edge {i+1}: ").split()
             edges.append(edge)
-        graph.add_edges_from(edges)
         graph.add_edges_from(edges)
         graphs.append(graph)
     return graphs
