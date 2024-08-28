@@ -40,11 +40,23 @@ def create_3d_graph(graphs):
         graph3d.add_edges_from(graph.edges())
     return graph3d
 
-def plot_3dGraf():
-    plt.subplot(1, len(graphs)+1, len(graphs)+1)
-    nx.draw(graph3d, with_labels=True)
-    plt.title('Graph 3D')
+def plot_3dGraf(graph):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
 
+    # Get the positions of the nodes in the 3D graph
+    pos = nx.get_node_attributes(graph, 'value')
+    x_vals = [pos[node][0] for node in graph.nodes()]
+    y_vals = [pos[node][1] for node in graph.nodes()]
+    z_vals = [pos[node][2] for node in graph.nodes()]
+
+    ax.scatter(x_vals, y_vals, z_vals, c='r', marker='o')
+
+    for edge in graph.edges():
+        x = [pos[edge[0]][0], pos[edge[1]][0]]
+        y = [pos[edge[0]][1], pos[edge[1]][1]]
+        z = [pos[edge[0]][2], pos[edge[1]][2]]
+        ax.plot(x, y, z, c='b')
     plt.show()
 
 
@@ -131,9 +143,11 @@ def library(x,y,z): #Center the object from the origin
     return figures
 
 
-Input_graphs()#Graphs
-graph3d = create_3d_graph(graphs)
-plot_3dGraf()
+graphs = Input_graphs()#Graphs
+#graph3d = create_3d_graph(graphs)
+for i, graph in enumerate(graphs):
+    print(f"plotting graph {i+1}:")
+    plot_3dGraf(graph)
 print("\n\n\n coords ejecutados\n\n\n")
 
 coords_user() #3d object
