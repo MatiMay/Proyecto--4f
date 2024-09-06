@@ -45,17 +45,25 @@ def newtetrahedrongraph() -> Tuple[List[List[int]], List[List[float]]]:
     
     return connections, vertices
 
-con, ver = newcubegraph()
-caras=[]
+def sacarIteraciones(caras):
+    vistos= set()
+    resultado= []
+    for i in caras:
+        if frozenset(i) not in vistos:
+            resultado.append(i)
+            vistos.add(frozenset(i))
+    return resultado
 
-for i in range(len(ver)):
-    print("i: "+str(i)+"\n")
-    caraAux = True
-    for j in range(len(con)):
-        print(" j: "+str(j))
-        if i in con[j] and caraAux:
-            caraAux = j
-        elif i in con[j]:
-            caras.append([i, caraAux, j])
-            print("cara creada: "+str(i)+ str(caraAux)+ str(j)+"\n")
-print(caras)
+def crearCaras(objeto):
+    con, ver = objeto
+    caras=[]
+
+    for i in range(len(con)):
+        for j in range(len(ver)):
+            if j in con[i]:
+                for k in range(len(ver)):
+                    if k!=j and k in con[i]:
+                        caras.append([i,j,k])
+    return caras 
+
+print(sacarIteraciones(crearCaras(newcubegraph())))
