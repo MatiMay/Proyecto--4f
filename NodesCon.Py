@@ -45,11 +45,17 @@ def newtetrahedrongraph() -> Tuple[List[List[int]], List[List[float]]]:
     
     return connections, vertices
 
-ver, con = newcubegraph()
-caras = [[] for _ in range(len(ver))]
+con, ver = newcubegraph()
+caras=[]
+
 for i in range(len(ver)):
+    print("i: "+str(i)+"\n")
+    caraAux = True
     for j in range(len(con)):
-        for k in con[j]:
-            if i == k:
-                caras[i]=k
+        print(" j: "+str(j))
+        if i in con[j] and caraAux:
+            caraAux = j
+        elif i in con[j]:
+            caras.append([i, caraAux, j])
+            print("cara creada: "+str(i)+ str(caraAux)+ str(j)+"\n")
 print(caras)
