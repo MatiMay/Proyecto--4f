@@ -1,5 +1,6 @@
 import numpy as np # type: ignore
 from stl import mesh # type: ignore
+import NodesCon # type: ignore
 
 def create_3d_object(coordinates):
     # Create a numpy array from the coordinates
@@ -89,16 +90,19 @@ def library(x,y,z,standarized): #Center the object from the origin
 def standarized(x,y,z):
     # Example usage
     object = library(x,y,z,True)
+    print("\n\n\n\n"+str(object)+"\n\n\n\n")
     # Create the 3D object
     object_3d = create_3d_object(object)
     # Export the 3D object as an STL file
     export_stl(object_3d, 'output.stl')
 
 if __name__ == "__main__":
-    print("User selected vertices or standarized vertices (U/S):")
+    print("User created or standarized or Recalled (U/S/R):")
     user = str(input())
+
     if user == 'U' or user == 'u':
         coords_user()
+
     elif user == 'S' or user == 's':
         print('Size of X:')
         x= int(input())
@@ -107,5 +111,12 @@ if __name__ == "__main__":
         print('Size of Z:')
         z= int(input())
         standarized(x,y,z)
+
+    elif user == 'R' or user == 'r':
+        object=NodesCon.sacarIteraciones(NodesCon.crearCaras(NodesCon.newcubegraph()))
+        object_3d = create_3d_object(object)
+        export_stl(object_3d, 'output.stl')
+        print("Object created??")
+
     else:
         print("Invalid input")

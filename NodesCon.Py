@@ -66,4 +66,21 @@ def crearCaras(objeto):
                         caras.append([i,j,k])
     return caras 
 
-print(sacarIteraciones(crearCaras(newcubegraph())))
+def llamarIndice(lista, coords):
+    
+    #in1: list[int]=[], in2: list[int]=[], in3: list[int]=[]
+    out: list[list[list[int]]]=[]
+    for i in lista:
+        in1=coords[i[0]]
+        in2=coords[i[1]]
+        in3=coords[i[2]]
+        out.append([in1,in2,in3])
+        print([in1,in2,in3])
+    return out
+        
+con, ver = newcubegraph()
+
+print("1:  "+str(sacarIteraciones(crearCaras(newcubegraph()))))
+print("\n")
+print("2: "+ str(llamarIndice(sacarIteraciones(crearCaras(newcubegraph())),ver)))
+print("\n")
