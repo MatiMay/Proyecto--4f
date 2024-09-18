@@ -113,7 +113,8 @@ if __name__ == "__main__":
         standarized(x,y,z)
 
     elif user == 'R' or user == 'r':
-        object=NodesCon.sacarIteraciones(NodesCon.crearCaras(NodesCon.newcubegraph()))
+        con, ver= NodesCon.newtetrahedrongraph()
+        object=NodesCon.llamarIndice(NodesCon.sacarIteraciones(NodesCon.crearCaras(NodesCon.newtetrahedrongraph())), ver)
         object_3d = create_3d_object(object)
         export_stl(object_3d, 'output.stl')
         print("Object created??")
