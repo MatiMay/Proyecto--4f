@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
     elif user == 'R' or user == 'r':
         con, ver= NodesCon.newtetrahedrongraph()
-        object=NodesCon.llamarIndice(NodesCon.sacarIteraciones(NodesCon.crearCaras(NodesCon.newtetrahedrongraph())), ver)
+        object=NodesCon.llamarIndice(NodesCon.sacarIteraciones(NodesCon.crearCaras(NodesCon.newcubegraph())), ver)
         object_3d = create_3d_object(object)
         export_stl(object_3d, 'output.stl')
         print("Object created??")
