@@ -18,11 +18,11 @@ if __name__ == "__main__":
 
     elif user.lower() in ["automatic", "a"]:
         user = input("What shape?\n")
-        figure = getattr(NodesCon, user, None)
-
+        figure = getattr(NodesCon, user)
         if figure:
             ver= figure()[1]
-            object=NodesCon.llamarIndice(NodesCon.sacarIteraciones(NodesCon.crearCaras(NodesCon.newcubegraph())), ver)
+            object=NodesCon.llamarIndice(NodesCon.sacarIteraciones(NodesCon.crearCaras(figure)), ver)
+            print(object)
             object_3d = coord.create_3d_object(object)
             coord.export_stl(object_3d, 'output.stl')
             print("Object created")
