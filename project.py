@@ -54,8 +54,8 @@ def sacarIteraciones(caras):
 def figure():
     """input("Vertices:\n")""" 
     """input("\nConections:\n")"""
-    vertices: List[List[int]] = [[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]]
-    connections: List[List[int]] = [[1, 2, 4], [0, 5, 3], [0, 3, 6], [2, 7, 1], [0, 5, 6], [4, 7, 1], [2, 4, 7], [3, 6, 5]]
+    vertices: List[List[int]] = [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0], [0.5, 0.5, 1]]
+    connections: List[List[int]] = [[1, 3, 4], [0, 2, 4], [1, 3, 4], [0, 2, 4], [0, 1, 2, 3]]
     
     return connections, vertices
 
@@ -65,5 +65,5 @@ if __name__=="__main__":
     ver= figure()[1]
     object=llamarIndice(sacarIteraciones(crearCaras(figure())),ver)
     object3D = create_3d_object(object)
-    export_stl(object3D,"Output.stl")
+    export_stl(object3D,"C:\\Users\\mamak\\3D Objects\\Output.stl")
     print("Objeto creado")
