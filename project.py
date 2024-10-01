@@ -28,6 +28,17 @@ def crearCaras(objeto):
                 for k in range(len(ver)):
                     if k!=j and k in con[i]:
                         caras.append([i,j,k])
+                        print(con[i],con[j],con[k])
+
+                        if j not in con[k]:
+                            con[j].append(k)
+                        if k not in con[j]:
+                            con[k].append(j)
+                        
+                        if i in con[j]:
+                            con[j].remove(i)
+                        if i in con[k]:
+                            con[k].remove(i)
     return caras 
 
 def llamarIndice(lista, coords):
@@ -54,20 +65,10 @@ def sacarIteraciones(caras):
 def figure():
     """input("Vertices:\n")""" 
     """input("\nConections:\n")"""
-    vertices: List[List[float]] = [
-        [1, 1, 1], [1, 1, -1], [1, -1, 1], [1, -1, -1],
-        [-1, 1, 1], [-1, 1, -1], [-1, -1, 1], [-1, -1, -1],
-        [0, 0.618, 1.618], [0, 0.618, -1.618], [0, -0.618, 1.618], [0, -0.618, -1.618],
-        [0.618, 1.618, 0], [0.618, -1.618, 0], [-0.618, 1.618, 0], [-0.618, -1.618, 0],
-        [1.618, 0, 0.618], [1.618, 0, -0.618], [-1.618, 0, 0.618], [-1.618, 0, -0.618]
-    ]
-    connections: List[List[int]] = [
-        [8, 12, 16, 2, 4], [12, 9, 13, 3, 0], [16, 10, 14, 3, 0], [14, 11, 7, 1, 2],
-        [8, 18, 15, 6, 0], [9, 19, 7, 1, 4], [10, 18, 17, 7, 2], [11, 19, 15, 6, 3],
-        [0, 10, 12, 14, 4], [1, 11, 13, 15, 5], [2, 8, 16, 18, 6], [3, 9, 14, 19, 7],
-        [0, 8, 16, 18, 1], [1, 9, 17, 19, 5], [2, 10, 18, 16, 3], [3, 11, 19, 17, 7],
-        [0, 2, 8, 10, 12], [6, 10, 18, 14, 4], [4, 6, 8, 12, 16], [5, 7, 9, 13, 15]
-    ]
+    vertices: List[List[float]] = [[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]]
+    
+    connections: List[List[int]] = [[1, 2, 4], [0, 5, 3], [0, 3, 6], [2, 7, 1], [0, 5, 6], [4, 7, 1], [2, 4, 7], [3, 6, 5]]
+
     return connections, vertices
 
 
